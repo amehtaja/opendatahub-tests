@@ -3,6 +3,7 @@ import re
 import subprocess
 from collections import Counter
 from collections.abc import Iterable
+from itertools import islice
 from typing import Any
 
 import portforward
@@ -139,7 +140,7 @@ def validate_text_inference_fuzzy(
             if len(words) >= 20:
                 phrase_length = 4
                 phrases = [
-                    " ".join(words[i : i + phrase_length]).lower() for i in range(len(words) - phrase_length + 1)
+                    " ".join(islice(words, i, i + phrase_length)).lower() for i in range(len(words) - phrase_length + 1)
                 ]
                 phrase_counts = Counter(iterable=phrases)
                 most_common = phrase_counts.most_common(n=1)
