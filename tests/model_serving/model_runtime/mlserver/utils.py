@@ -142,10 +142,12 @@ def validate_deterministic_snapshot(response: Any, response_snapshot: Any) -> No
     """
     assert response, "Response is empty"
     assert response.get("outputs"), "Response missing outputs"
+    assert isinstance(response["outputs"], list), "Outputs must be a list"
+    assert len(response["outputs"]) > 0, "Outputs list is empty"
 
     actual_data = response["outputs"][0].get("data", [])
     assert actual_data, "Data is empty"
-    assert len(actual_data) >= 1, f"Data has less than 1 element: {len(actual_data)}"
+    assert isinstance(actual_data, list), "Data must be a list"
     assert all(isinstance(x, (int, float, list)) for x in actual_data), "Invalid data types in response"
 
 
