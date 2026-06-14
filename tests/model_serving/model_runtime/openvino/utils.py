@@ -133,7 +133,6 @@ def validate_inference_request(
 
     top_k = min(5, len(actual_data))
     actual_top_k = sorted(range(len(actual_data)), key=lambda i: actual_data[i], reverse=True)[:top_k]
-    assert len(actual_top_k) == top_k
     assert all(isinstance(i, int) and 0 <= i < len(actual_data) for i in actual_top_k)
 
 
